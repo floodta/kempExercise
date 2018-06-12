@@ -1,0 +1,13 @@
+{% block body %}
+<form action="/addServer" method="POST">
+  <h1>IP Address:<br>
+  <input type="text" name="IPAddress"  placeholder="IP Address" ><br></h1>
+  <h1>Nick Name:<br>
+  <input type="text" name="nickName"  placeholder="IP Address" ><br></h1>
+  <h1>Cluster ID:<br>
+  <input type="number" name="clusterId"  min="1" max="1000" placeholder="Cluster Id" ><br></h1>
+  <h1><input type="submit" value="Submit"></h1>
+</form>
+
+<h2><li><a href="/returnToMenu">Return to main menu</a></li></h2>
+{% endblock %}

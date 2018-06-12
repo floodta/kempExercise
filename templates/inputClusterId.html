@@ -1,0 +1,9 @@
+{% block body %}
+<form action="/listOfServers" method="POST">
+  <h2>ENTER CLUSTER ID:<br>
+  <input type="number" name="clusterId" min="1" max="1000" placeholder="Cluster Id" ><br></h2>
+  <h1><input type="submit" value="Submit"></h1>
+</form>
+
+<h2><li><a href="/returnToMenu">Return to main menu</a></li></h2>
+{% endblock %}
