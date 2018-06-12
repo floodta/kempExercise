@@ -1,6 +1,32 @@
-# kempExercise
 
 
+Setup
+1. Create Database: from mysql run KempDBInit.sql. 
+This will create the database kempexercise.
+2. run 
+    pip install Flask
+    pip install MySQLdb
+2. run python app.py
+3. Enter details for user and password : e.g. username = kemp, password = limerick
+
+ 
+Description of Database
+Based on the following definitions:
+
+    User = Entity uniquely identified by a username and password
+    Server = Entity to which one or more users can have access
+    Cluster = Collection of servers
+    A user can have access to multiple servers
+    A server can belong to only 1 cluster
+    A cluster can contain multiple servers
+    
+    The following tables were created:
+        server_table
+        user_table_table
+        user_table
+        cluster_table
+        server_access_table
+ 
 Description of modules
 def index
 
