@@ -30,80 +30,69 @@ def login():
         if userId != -1:
             session['username'] = request.form['username']
             session['userId'] = userId
-        
             return redirect(url_for('menu'))
-            
         else:
             error = "Invalid Credential"
     return render_template('login.html', error=error)
 
-@app.route('/serversList')
+@app.route('/servers_list')
 #Retrieve the list of servers to which the user that is invoking the API has access
-def serversList():
+def servers_list():
     id = session['userId']
-    results = execute_db_command("SELECT * FROM user_server_table where userId = %s order by serverId;",  [id])
+    results = kempApi.get_list_of_servers_allowed(id)
     return render_template('serversList.html', results=results)
 
 
-@app.route('/clustersList')
+@app.route('/clusters_list')
 #Retrieve the list of clusters that contain at least 1 server to which the user that invoking the API has access
-def clustersList():
+def clusters_list():
     id = session['userId']
-    results = execute_db_command("select DISTINCT clusterId from server_table join user_server_table on user_server_table.serverId ="
-                                +" server_table.id where user_server_table.userId = %s;",  [id])
+    results = kempApi.get_list_of_clusters(id)
     return render_template('clustersList.html', results=results)
 
-@app.route('/inputClusterId')
-def inputClusterId():
+@app.route('/input_cluster_id')
+def input_cluster_id():
     return render_template('inputClusterId.html')
 
-@app.route('/inputServerId')
-def inputServerId():
+@app.route('/input_server_id')
+def input_server_id():
     return render_template('inputServerId.html')
 
-@app.route('/addServerRow')
-def addServerRow():
+@app.route('/add_server_row')
+def add_server_row():
     return render_template('addServerRow.html')
 
-@app.route('/listOfServers', methods=['GET', 'POST'])
+@app.route('/list_of_servers', methods=['GET', 'POST'])
 #Retrieve the list of servers that belong to a specified cluster
-def listOfServers():
+def list_of_servers():
     if request.method == 'POST':
         clusterId  = request.form['clusterId']
-        print(clusterId)
-        results = execute_db_command("select id from server_table where clusterId = %s;",  [clusterId])
-        return render_template('clusterId.html', results=results)
-   
+        results = kempApi.get_list_of_servers(clusterId)
+        return render_template('clusterId.html', results=results)   
 
-@app.route('/accessAttempts', methods=['GET', 'POST'])
+@app.route('/access_attempts', methods=['GET', 'POST'])
 #Retrieve the list of access attempts for each user against a particular server 
-def accessAttempts():
-    print("tzf1 ")
+def access_attempts():
     if request.method == 'POST':
         serverId  = request.form['serverId']
-        
-        print(serverId)
-        results = execute_db_command("SELECT userId, serverId, success, dateStamp FROM service_access_table where serverId = %s;",  [serverId])
+        results = kempApi.get_access_attempts(serverId)
         return render_template('userServerAttempts.html', results=results)
 
 
-@app.route('/addServer', methods=['GET', 'POST'])
+@app.route('/add_server', methods=['GET', 'POST'])
 #Add a server to a cluster by specifying an IP, nickname, cluster to which belongs
-def addServer():
+def add_server():
     if request.method == 'POST':
         ipAddress  = request.form['IPAddress']
         nickName  = request.form['nickName']
         clusterId  = request.form['clusterId']
-       
-        results = execute_db_command("insert into server_table (ipAddress, clusterId, name) values (%s,%s,%s);",  [ipAddress, clusterId, nickName])
-        results = execute_db_command("select * from server_table where ipAddress = %s and  clusterId = %s and name = %s",[ipAddress, clusterId, nickName])
-        
+        results = kempApi.add_server(ipAddress, clusterId, nickName)
         return render_template('serverAdded.html', results=results)
     
 
 
-@app.route('/returnToMenu')
-def returnToMenu():
+@app.route('/return_to_menu')
+def return_to_menu():
     return redirect(url_for('menu'))
 
 

@@ -172,7 +172,7 @@ INSERT INTO user_server_table  (userId, serverId) VALUES
 select * from user_server_table;
 LOCK TABLES `user_table` WRITE;
 /*!40000 ALTER TABLE `user_table` DISABLE KEYS */;
-INSERT INTO `user_table` VALUES (1,'Analog','40d6bb3ed7fef516c73274131d5a837c16de74fd'),(2,'Kemp','2ff49fd7626d775c9c05a4b41c4700452e417e45');
+
 /*!40000 ALTER TABLE `user_table` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

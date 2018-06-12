@@ -1,9 +1,12 @@
 <h1 align="center-left"><tr><th>Servers that belong to Cluster</th></tr></h1>
 <table border=1>
 <h1><tr><th>Server ID</th></tr></h1>
+	{% if results|length > 0 %}
         {% for result in results %}
 		<tr><td>{{ result[0] }}</td></tr>
-        
         {% endfor %}
+	{% else %}
+		<tr><td>No servers found</td></tr>
+	{% endif %}
 </table>
-<h2><li><a href="/returnToMenu">Return to main menu</a></li></h2>
+<h2><li><a href="/return_to_menu">Return to main menu</a></li></h2>
