@@ -9,6 +9,14 @@ This will create the database kempexercise.
 2. run python app.py
 3. Enter details for user and password : e.g. username = kemp, password = limerick
 
+ Example: Username Kemp has access to 3 Servers which are on 2 clusters.  
+        A check can be done to see sucessful and failed attempts by kemp on each server. 
+        kemp can also add a new server.  
+
+
+API documentation is checked in. 
+
+
  
 Description of Database
 Based on the following definitions:
@@ -27,7 +35,10 @@ Based on the following definitions:
         cluster_table
         server_access_table
  
-Description of modules
+ 
+        
+Description of modules in app.py and kempApi.py
+
 def index
 
   purpose: redirect to login if user is not in session.  
